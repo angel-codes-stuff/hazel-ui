@@ -1,0 +1,16 @@
+export struct GameManifest {
+    id: int,
+    title: string,
+    version: string,
+    install_path: string,
+    executable: string,
+    arguments: [string],
+    installed: bool,
+}
+
+export enum Screen {
+    home,
+    store,
+    game,
+    settings
+}

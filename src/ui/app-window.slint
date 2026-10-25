@@ -1,37 +1,12 @@
-import { VerticalBox, ScrollView } from "std-widgets.slint";
-
-export struct GameManifest {
-    id: int,
-    title: string,
-    version: string,
-    install_path: string,
-    executable: string,
-    arguments: [string],
-    installed: bool,
-}
-
+import { Button } from "std-widgets.slint";
+import { GameManifest } from "types.slint";
 export component MainWindow inherits Window {
-    full-screen: false;
-
+    callback show-fullscreen();
     in property <[GameManifest]> games;
-
-    ScrollView {
-        width: 90%;
-        height: 185px * 2 + 5px;
-        x: parent.width * 5%;
-        HorizontalLayout {
-            spacing: 5px;
-            padding: 5px;
-            for game[index] in games: Rectangle {
-                Text {
-                    text: game.title;
-                    font-size: 60px;
-                }
-
-                width: 325px * 2;
-                height: 185px * 2;
-                background: gray;
-            }
+    Button {
+        text: "Enter console mode";
+        clicked => {
+            show-fullscreen()
         }
     }
 }

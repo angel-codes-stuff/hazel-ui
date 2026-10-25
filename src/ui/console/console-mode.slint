@@ -1,0 +1,48 @@
+import { VerticalBox, ScrollView } from "std-widgets.slint";
+import { GameView } from "game-page.slint";
+import { GameManifest, Screen } from "../types.slint";
+import { TopBar } from "navigation.slint";
+
+component GamesWindow {
+    in property <[GameManifest]> games;
+
+    height: 100%;
+    width: 100%;
+
+    GameView {
+        games: games;
+        width: parent.width;
+        height: parent.height;
+    }
+}
+
+
+export component ConsoleModeWindow inherits Window {
+    full-screen: true;
+
+    in property <[GameManifest]> games;
+    in-out property <Screen> screen: Screen.home;
+
+
+
+    VerticalLayout {
+        width: 100%;
+        height: 100%;
+        spacing: 0px;
+        padding: 0px;
+
+        TopBar {
+            height: 40px;
+        }
+
+        VerticalLayout {
+            height: 100%;
+            padding-top: parent.height * 25%;
+            alignment: center;
+            if screen == Screen.home : GamesWindow {
+                games: games;
+            }
+        }
+    }
+
+}

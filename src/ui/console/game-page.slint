@@ -1,0 +1,42 @@
+import { ScrollView } from "std-widgets.slint";
+import { GameManifest } from "../types.slint";
+
+component GameView inherits ScrollView {
+    in property <[GameManifest]> games;
+
+    animate content-x {
+         duration: 200ms;
+         easing: ease-in-out;
+    }
+
+    HorizontalLayout {
+        alignment: center;
+        spacing: 10px;
+        padding: 10px;
+
+        for game[index] in games: Rectangle {
+            Text {
+                text: game.title;
+                font-size: 60px;
+            }
+
+            //TODO: change when controller support is added
+            width: area.has-hover ? 175px : 125px;
+            height: area.has-hover ? 175px : 125px;
+            background: gray;
+
+            animate width, height {
+                duration: 150ms;
+                easing: ease-in-out;
+            }
+
+            area := TouchArea {
+                clicked => {
+                    debug(game.title)
+                }
+            }
+        }
+    }
+}
+
+export { GameView }
